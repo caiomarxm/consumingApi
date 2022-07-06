@@ -1,4 +1,3 @@
-import json
 import requests
 
 class HgApi():
@@ -12,28 +11,23 @@ class HgApi():
     def getKey(self):
         return self._key
 
-    def getUrl(self, endpoint='finance/quotations'):
+    def getUrl(self, endpoint=''):
         url = f"https://api.hgbrasil.com/{endpoint}?format=json&key={self._key}"
         return url
 
     def request(self, endpoint='', params = {}):
         url = f"https://api.hgbrasil.com/{endpoint}?format=json&key={self._key}"
-        if params:
-            # Tratamento dos Parâmetros...
-            pass
         try:
-            response = requests.get(url)
-            data = json.loads(response)
-            return data
+            return requests.get(url, params)
         except:
             self._error = True
             return False
 
-    def dolarQuotation(self):
-        data = self.request('finance/quotations')
+    def dolarQuotation(self, params={'fields': 'only_results,USD'}):
+        data = self.request('finance/quotations', params)
         if data:
-            # Verificação dos dados...
-            pass
+            return data.json()
+        return False
         
     def isError(self):
         return self._error
