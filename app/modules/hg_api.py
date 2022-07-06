@@ -1,23 +1,23 @@
 import json
 import requests
 
-class hgApi():
-    __key = None
-    __error = False
+class HgApi():
+    _key = None
+    _error = False
 
     def __init__(self, key=None):
         if key:
-            self.__key = key
+            self._key = key
 
     def getKey(self):
-        return self.__key
+        return self._key
 
     def getUrl(self, endpoint='finance/quotations'):
-        url = f"https://api.hgbrasil.com/{endpoint}?format=json&key={self.__key}"
+        url = f"https://api.hgbrasil.com/{endpoint}?format=json&key={self._key}"
         return url
 
     def request(self, endpoint='', params = {}):
-        url = f"https://api.hgbrasil.com/{endpoint}?format=json&key={self.__key}"
+        url = f"https://api.hgbrasil.com/{endpoint}?format=json&key={self._key}"
         if params:
             # Tratamento dos Parâmetros...
             pass
@@ -26,7 +26,7 @@ class hgApi():
             data = json.loads(response)
             return data
         except:
-            self.__error = True
+            self._error = True
             return False
 
     def dolarQuotation(self):
@@ -36,4 +36,4 @@ class hgApi():
             pass
         
     def isError(self):
-        return self.__error
+        return self._error
