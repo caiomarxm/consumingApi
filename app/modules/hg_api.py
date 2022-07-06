@@ -12,6 +12,10 @@ class hgApi():
     def getKey(self):
         return self.__key
 
+    def getUrl(self, endpoint='finance/quotations'):
+        url = f"https://api.hgbrasil.com/{endpoint}?format=json&key={self.__key}"
+        return url
+
     def request(self, endpoint='', params = {}):
         url = f"https://api.hgbrasil.com/{endpoint}?format=json&key={self.__key}"
         if params:

@@ -1,11 +1,11 @@
 from app.config import config
 from app.modules import hg_api
-import requests
+from requests import *
 
-hg = hg_api.hgApi(config.hgApiKey)
+key = config.hgApiKey
+hg = hg_api.hgApi(key)
 
-print(hg.dolarQuotation())
+response = get('https://api.hgbrasil.com/finance/quotations?key=12b04fd9')
+data = response.json()
 
-response = requests.get('https://api.hgbrasil.com/finance/quotations?key=12b04fd9')
-
-print(response.body)
+print(data)
